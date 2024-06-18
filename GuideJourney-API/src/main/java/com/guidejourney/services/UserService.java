@@ -1,13 +1,15 @@
 package com.guidejourney.services;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
+
 import com.guidejourney.exceptions.UserAlreadyExistsException;
 import com.guidejourney.mapper.UserMapper;
-import com.guidejourney.model.dto.LoginDTO;
+import com.guidejourney.model.dto.UserDTO;
 import com.guidejourney.model.entities.User;
+import com.guidejourney.model.enums.Role;
 import com.guidejourney.repositories.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
 
 @Service
 public class UserService {
@@ -16,17 +18,20 @@ public class UserService {
     private UserRepository userRepository;
 
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    private BCryptPasswordEncoder passwordEncoder;
 
     @Autowired
     private UserMapper userMapper;
 
-    public User registerUser(LoginDTO loginDTO) throws UserAlreadyExistsException {
-        if (userRepository.existsByEmail(loginDTO.getEmail())) {
-            throw new UserAlreadyExistsException("User with email " + loginDTO.getEmail() + " already exists.");
+    public User registerUser(UserDTO userDTO) {
+        if (userRepository.existsByEmail(userDTO.getEmail())) {
+            throw new UserAlreadyExistsException("El correo está en uso");
         }
-        User user = userMapper.loginDTOToUser(loginDTO);
-        user.setPassword(passwordEncoder.encode(loginDTO.getPassword()));
+
+        User user = userMapper.convertToEntity(userDTO);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setRole(Role.PENDING);
+
         return userRepository.save(user);
     }
 }
