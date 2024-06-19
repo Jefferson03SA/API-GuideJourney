@@ -24,5 +24,7 @@ public class MentorProfileDTO {
     @Size(max = 1000, message = "La biografía no debe exceder los 1000 caracteres")
     private String biography;
 
-    private String linkedinLink; // Este no necesita traducción
+    private String linkedinLink; 
+
+    private String role;
 }

@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 
 import jakarta.transaction.Transactional;
 import java.util.Optional;
-
 @Service
 public class MentorProfileService {
 
@@ -47,9 +46,12 @@ public class MentorProfileService {
 
         mentorProfile = mentorProfileMapper.toEntity(mentorProfileDTO);
         mentorProfile.setCountry(Country.valueOf(mentorProfileDTO.getCountry()));
-        mentorProfile.setUser(user); 
+        mentorProfile.setUser(user);
 
         MentorProfile savedProfile = mentorProfileRepository.save(mentorProfile);
-        return mentorProfileMapper.toDto(savedProfile);
+        MentorProfileDTO updatedDTO = mentorProfileMapper.toDto(savedProfile);
+        updatedDTO.setRole(user.getRole().name()); // Establecer el rol en el DTO
+
+        return updatedDTO;
     }
 }
