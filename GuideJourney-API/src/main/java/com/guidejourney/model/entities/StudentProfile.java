@@ -20,7 +20,8 @@ public class StudentProfile {
     private User user;
 
     @Lob
-    private byte[] profilePicture; // Preparado para ser utilizado
+    @Column(name = "profile_picture", columnDefinition = "BYTEA")
+    private byte[] profilePicture;
 
     private String name;
 
@@ -30,8 +31,9 @@ public class StudentProfile {
     private String companyOrSchool;
 
     @Lob
-    private String biography; // Preparado para ser utilizado
+    @Column(name = "biography", columnDefinition = "TEXT")
+    private String biography;
 
     @ElementCollection
-    private List<String> interestAreas; // Preparado pero no utilizado en esta rama
+    private List<String> interestAreas;
 }
