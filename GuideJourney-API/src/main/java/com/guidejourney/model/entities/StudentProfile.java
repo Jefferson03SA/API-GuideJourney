@@ -4,6 +4,8 @@ package com.guidejourney.model.entities;
 import jakarta.persistence.*;
 import java.util.List;
 import com.guidejourney.model.enums.Country;
+import com.guidejourney.model.enums.InterestArea;
+
 import lombok.Data;
 
 @Entity
@@ -34,5 +36,6 @@ public class StudentProfile {
     private String biography;
 
     @ElementCollection
-    private List<String> interestAreas;
+    @Enumerated(EnumType.STRING)
+    private List<InterestArea> interestAreas;
 }
