@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import jakarta.transaction.Transactional;
 import java.util.Optional;
+
 @Service
 public class MentorProfileService {
 
@@ -51,6 +52,7 @@ public class MentorProfileService {
         MentorProfile savedProfile = mentorProfileRepository.save(mentorProfile);
         MentorProfileDTO updatedDTO = mentorProfileMapper.toDto(savedProfile);
         updatedDTO.setRole(user.getRole().name()); // Establecer el rol en el DTO
+        updatedDTO.setEmail(user.getEmail()); // Asegurarse de que el email esté presente en el DTO
 
         return updatedDTO;
     }
