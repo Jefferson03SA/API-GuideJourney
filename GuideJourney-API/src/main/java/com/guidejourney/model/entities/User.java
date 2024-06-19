@@ -1,28 +1,25 @@
 package com.guidejourney.model.entities;
+import com.guidejourney.model.enums.Role;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.*;
-import lombok.*;
+import lombok.Data;
 
 @Entity
-@Setter
-@Getter
-@NoArgsConstructor
-@AllArgsConstructor
+@Data
 @Table(name = "Usuarios")
 public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long userId;
+    private Long id;
 
-    @Column(unique = true)
-    @Email
-    @NotBlank
+    @Column(nullable = false, unique = true)
     private String email;
 
     @Column(nullable = false)
-    @Size(min = 8)
-    @NotBlank
     private String password;
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Role role;
 }
