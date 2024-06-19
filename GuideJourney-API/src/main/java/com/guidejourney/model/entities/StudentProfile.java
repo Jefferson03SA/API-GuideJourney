@@ -1,10 +1,9 @@
 package com.guidejourney.model.entities;
 
+
 import jakarta.persistence.*;
 import java.util.List;
-
 import com.guidejourney.model.enums.Country;
-
 import lombok.Data;
 
 @Entity
@@ -19,7 +18,7 @@ public class StudentProfile {
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
-    @Lob
+    @Basic(fetch = FetchType.LAZY)
     @Column(name = "profile_picture", columnDefinition = "BYTEA")
     private byte[] profilePicture;
 
