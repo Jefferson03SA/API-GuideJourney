@@ -16,7 +16,7 @@ public class MentorProfileDTO {
     @NotNull(message = "El país es requerido")
     private String country;
 
-    private String company; // Este no necesita traducción
+    private String company; 
 
     @Min(value = 0, message = "Los años de experiencia deben ser un número positivo")
     private int yearsOfExperience;
